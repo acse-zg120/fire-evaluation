@@ -31,7 +31,7 @@ Classification file:
 
 filename                          |  description
 ----------------------------------|------------------------------------------------------------------------------------
-`Classification ML.R`             |Apply decision tree and random forest algorithms to train data set, and calculate accuracy for five fire categories.                      
+`Classification_ML.R`             |Apply decision tree and random forest algorithms to train data set, and calculate accuracy for five fire categories.                      
 
 
 Results:
