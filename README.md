@@ -16,8 +16,8 @@ Data Preprocessing:
 
 filename                          |  description
 ----------------------------------|------------------------------------------------------------------------------------
-`clip_convert_raster.R`           |Clip original TIFF files with Pantanal boder and convert into raster files (SHL format).
-`process_csv.py`                  |Convert raster files into CSV files.
+`clip_convert_raster.R`           |Clip original TIFF files with Pantanal boder and convert to raster files (SHL format).
+`process_csv.py`                  |Convert raster files to CSV files.
 `read_fire_data.R`                |Obtain information from raster files, combine climate data during dry season (April-Sep) in to individual CSV files for each variable, read fire information, and merge all CSV into one CSV for training purpose.
 
 Mann-Kendll Trend Test file: 
