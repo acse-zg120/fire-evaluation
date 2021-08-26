@@ -1,4 +1,4 @@
-ACSE 9 Independent Research Project 
+ACSE 9 Independent Research Project - Zihui Ge
 ==========
 
 Description 
