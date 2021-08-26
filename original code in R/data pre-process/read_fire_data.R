@@ -1,7 +1,10 @@
 library(dplyr)
 library(tidyverse)
 
-
+# This file is used to obtain information and pre-process data
+# The training set file will be made at the end of this code
+# We need to obtain data from 'SHL' files and combine row elements if they are
+# from the same id number
 
 ################################
 setwd("/Users/zihuige/ACSE/ACSE-9/Project/ACSE_9_PROJECT/data/CSV")
@@ -20,7 +23,7 @@ preprocess_datasets <- function(path0){
   
   for(i in list){
     df <- read.csv(paste0(path0, i))
-    df <- subset(df, select = -c(geometry))    
+    df <- subset(df, select = -c(geometry))
     df <- df %>%
       group_by(id) %>%
       summarise_all(mean)
@@ -30,11 +33,16 @@ preprocess_datasets <- function(path0){
   }
 }
 
-# Need to change the index of list from function 'process_datasets')
-preprocess_datasets(path0) 
 
+###############
+# This is the function to access variable information from different CSV files into
+# one CSV file for each variable
+###############
 
-# This is the 
+# Need to comment current code corresponding to different file of variables
+preprocess_datasets(path0)
+
+# process
 process_datasets <- function(file_name){
   data <- data.frame()
   
@@ -47,7 +55,7 @@ process_datasets <- function(file_name){
   data4 <- data_frame(read.csv(paste0(path0, list[4])))
   data5 <- data_frame(read.csv(paste0(path0, list[5])))
   data6 <- data_frame(read.csv(paste0(path0, list[6])))
-  # 
+  #
   # Solar Radiation
   # data1 <- data_frame(read.csv(paste0(path0, list[7])))
   # data2 <- data_frame(read.csv(paste0(path0, list[8])))
@@ -93,10 +101,12 @@ prec_data <- process_datasets('prec_data.csv')
 # vapr_data <- process_datasets('vapr_data.csv')
 # wind_data <- process_datasets('wind_data.csv')
 
-# Finally merge a variety of bioclimatc datasets into a csv file before we train the model
+## This is the funtion to merge variable CSV files into same CSV file with their id numbers
+# Finally merge a variety of bioclimatc datasets into a same csv file before we train the model
 merge_datasets <- function(path1){
   data <- data.frame()
   
+  ## process fire information
   # Drop data column and calculate average values by duplicate grid cells
   df_fire <- read.csv('/Users/zihuige/ACSE/ACSE-9/Project/ACSE_9_PROJECT/data/PAN_FIRE_M-C61.csv')
   # df_fire <- subset(df_fire, select = -c(BRIGHTNESS,BRIGHT_T31,ACQ_DATE) )
