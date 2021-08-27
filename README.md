@@ -3,11 +3,33 @@ ACSE 9 Independent Research Project - Zihui Ge
 
 Description 
 --------
-This repository contains scripts in R language to process geo-files, analyse trends between fire dynamics and climate variables, and implement automatic learning algorithms. Local regression, second-order regression, and Mann-Kendall Trend test are applied to analyse the trend of fire occurrences and precipitation in the Pantanal biome in South America. Two multi-class classification methods, decision tree and random forest algorithms in machine learning is applied to predict and classify fires into five categories: category 1 (<100MW), category 2 (100-500MW), category 3 (500-1000MW), category 4 (1000-1500MW) and category 5 (≥1500MW). Fire information in Pantanal was collected using Moderate Resolution Imaging Spectroradiometer (MODIS) MCD14ML from 2000 to 2018. 
+This repository contains scripts in R language to process geo-files, analyse trends between fire dynamics and climate variables, and implement automatic learning algorithms. Local regression, second-order regression, and Mann-Kendall Trend test are applied to analyse the trend of fire occurrences and precipitation in the Pantanal biome in South America. Two multi-class classification methods, decision tree and random forest algorithms in machine learning is applied to predict and classify fires into five categories: category 1 (<100MW), category 2 (100-500MW), category 3 (500-1000MW), category 4 (1000-1500MW) and category 5 (≥1500MW). Fire information in Pantanal is collected using Moderate Resolution Imaging Spectroradiometer (MODIS) MCD14ML from 2000 to 2018. 
+
+
+<img alt="Study Area" src="results/PantanalMap.pdf" width="50%">
+
+
 
 Dependencies
 ------------
-The majority of code files were written in R expect `process_csv.py` file. 
+The majority of code files were written in R. There are two versions for stastical analyses and automatic learnings. Users can eeasily download `.ipynb` files from `acse2020-acse9-finalreport-acse-zg120/code in ipynb/` repository, and download corresponding datasets from `acse2020-acse9-finalreport-acse-zg120/dataset/`
+
+R version:  
+In Colab: version 4.1.1 (2021-08-10)  
+In RStudio: Version 1.4.1717
+
+Packages
+------------
+corrplot & 0.90 & dismo & 1.3-3 \\ \hline
+dplyr & 1.0.7 & ggplot2 & 3.3.5 \\ \hline
+Kendall & 2.2 & maptools & 1.1-1 \\ \hline
+pROC & 1.17.0.1 & randomForest & 4.6-14 \\ \hline
+raster & 3.4-13 & rattle & 5.4.0 \\ \hline
+rgdal & 1.5-23 & rgoes & 0.5-5 \\ \hline
+ROCR & 1.0-11 & rpart & 4.1-15  \\ \hline
+rpart.plot & 3.1.0 & zoo & 1.8-9 \\ \hline
+
+
 
 Description of files
 --------------------
