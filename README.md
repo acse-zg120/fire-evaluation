@@ -84,5 +84,5 @@ ROC.png                           |AUC curve (ROC) plot for each fire category
 
 ## Contact
 Ge, Zeena - zihui.ge20@imperial.ac.uk
-## Referenc
+## Reference
 ReadMe template from: https://github.com/sidneycadot/oeis.git
