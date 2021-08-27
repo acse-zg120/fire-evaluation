@@ -19,7 +19,7 @@ corrplot(corr, method = 'color', type = 'lower', order = 'alphabet',
          tl.col = 'black', addCoef.col = 'black',
          cl.ratio = 0.2, tl.srt = 40, col = col2(20))
 
-# excluded data from vapour and wind
+# remove vapour and wind data
 # apply correlation test again 
 data <- data[, -c(5,6)]
 cor_data <- cor(data[, 2:4])
