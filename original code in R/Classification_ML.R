@@ -20,12 +20,12 @@ corrplot(corr, method = 'color', type = 'lower', order = 'alphabet',
          cl.ratio = 0.2, tl.srt = 40, col = col2(20))
 
 # excluded data from vapour and wind
-# applied correlation test again 
+# apply correlation test again 
 data <- data[, -c(5,6)]
 cor_data <- cor(data[, 2:4])
 cor_data
 
-
+# convert fire into different labels based on FRP values 
 FireBand <-ifelse(data$FRP>=1500, 4, data$FRP)
 FireBand <-ifelse(1500>=data$FRP & data$FRP>1000, 3, FireBand)
 FireBand <-ifelse(1000>=data$FRP & data$FRP>500, 2, FireBand)
@@ -44,7 +44,8 @@ FPR_2 <- c()
 FPR_3 <- c()
 FPR_4 <- c()
 
-# Decision tree
+
+### Decision tree ###
 
 library('rattle')
 library('pROC')
@@ -71,7 +72,7 @@ tree.fire <- rpart(FireBand ~ ., data = traintree,
 head(tree.fire$cptable, 10)
 
 # We can see from 'cptable', when cp=0.000238,
-# x-val relative error has the nimimum value '1.0'
+# x-val relative error has the minimum value '1.0'
 # We'll let cp=0.000238 to prune the decision tree
 CP <- 0.000238
 
@@ -93,7 +94,7 @@ FPR_3[1] <- (err_list[4,1]+err_list[4,2]+err_list[4,3]+err_list[4,5])/sum(err_li
 FPR_4[1] <- (err_list[5,1]+err_list[5,2]+err_list[5,3]+err_list[5,4])/sum(err_list[5,])
 
 
-# Random Forest
+### Random Forest ###
 
 library('randomForest')
 
@@ -107,7 +108,7 @@ testset <- setdiff(1:nrows, trainset)
 traintree <- datatree[trainset,]
 testtree <- datatree[testset,]
 
-# Create an initial Random Forest with ntree=500, mtry=1
+# Create an initial Random Forest model with ntree=500, mtry=1
 model <- randomForest(as.factor(FireBand) ~ .,
                             data=traintree,
                             ntree=500,mtry=1,
@@ -116,9 +117,9 @@ model <- randomForest(as.factor(FireBand) ~ .,
                             replace=TRUE)
 print(model)
 
-# Due to the memory limitation, I simulated random forest models with a series of
-# 'ntree' and 'ntry' on Colab with a virtual machine. I have uploaded a colab verson 
-# file in the same repository
+# Due to the device memory limitation, I simulated random forest models with a series of
+# 'ntree' and 'ntry' on Colab with a virtual machine. I have also uploaded a colab verson 
+# file.
 # 
 # ntree_list <- c(50,100,500,1000)
 # ntry_list <- c(1,2,3)
@@ -161,6 +162,7 @@ print(model)
 # ntree: 823  ntry: 0.1194954
 # ntree: 968  ntry: 0.1204441
 
+# The error rate has the smallest value when ntree=730, mtry=1.
 model.final <- randomForest(as.factor(FireBand) ~ .,
                          data=traintree, 
                          ntree=730, mtry=1,
@@ -187,11 +189,12 @@ FPR_2[2] <- (err_list[3,1]+err_list[3,2]+err_list[3,4]+err_list[4,5])/sum(err_li
 FPR_3[2] <- (err_list[4,1]+err_list[4,2]+err_list[4,3]+err_list[4,5])/sum(err_list[4,])
 FPR_4[2] <- (err_list[5,1]+err_list[5,2]+err_list[5,3]+err_list[5,4])/sum(err_list[5,])
 
-
+# Merge all information together
 OVERALL <-  data.frame(Model, Accuracy, ErrorRate,FPR_0,FPR_1,
                        FPR_2,FPR_3,FPR_4)
 OVERALL
 
+# Plot AUC curves (ROC)
 library(ROCR)
 par(mfrow= c(1,1))
 roc.pred <- predict(model.final, testtree,type="prob")
